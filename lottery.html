@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <title>签到</title>
-    <script type="text/javascript" src="/js/jquery-1.10.1.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <style>
         /*抽奖大转盘开始*/
         .ck-wheel{
             width:100%;
-            height:6.64rem;
-            background:url(../../images/v3/balloon@2x.png) no-repeat left top;
-            background-size:7.5rem 5.68rem;
+            height:100%;
+            background:url(./balloon@2x.png) no-repeat left top;
+            background-size:100% 100%;
             margin: .3rem 0;
         }
         .wheel{
@@ -20,7 +20,7 @@
             width:6.64rem;
             height:6.64rem;
             position:relative;
-            background-image:url(../../images/v3/wheel-bg.png);
+            background-image:url(./wheel-bg.png);
             background-size:100% 100%;
             margin: 0 auto;
         }
@@ -43,7 +43,7 @@
     <div class="ck-wheel">
         <div class="wheel">
             <canvas class="item" id="wheelCanvas" width="844px" height="844px"></canvas>
-            <img class="pointer" src="../../images/v3/wheel-pointer.png" />
+            <img class="pointer" src="./wheel-pointer.png" />
         </div>
     </div>
     <script type="text/javascript" src="./jQueryRotate.js"></script>
@@ -64,7 +64,7 @@
         };
         turnWheel.rewardNames = ["380元白酒抵用券", "谢谢参与", "30积分", "谢谢参与", "10积分", "谢谢参与"];
         //6个图片地址,需要自己写一下
-        turnWheel.rewardUrl = [];
+        turnWheel.rewardUrl = ["","","","","",""];
         turnWheel.prizeId =   ["6", "1", "2", "3", "4", "5"];
         turnWheel.colors = [
             "#AE3EFF",
@@ -121,34 +121,35 @@
             var count = turnWheel.rewardNames.length;
 
             // 这里应该是从服务器获取用户真实的获奖信息（对应的获奖序号）
-            $.ajax({
-                type: "POST",
-                url: "./aaaaaa.htm",
-                data: {customerId:2589},
-                async:false,
-                dataType:"json", // 返回数据类型
-                success: function(data){
-                    console.log(data);
-                    if(data.type == 1){//积分不足
+            // $.ajax({
+            //     type: "POST",
+            //     url: "./aaaaaa.htm",
+            //     data: {customerId:2589},
+            //     async:false,
+            //     dataType:"json", // 返回数据类型
+            //     success: function(data){
+            //         console.log(data);
+            //         if(data.type == 1){//积分不足
 
-                    }else if(data.type == 2){//抽奖次数已经用完
+            //         }else if(data.type == 2){//抽奖次数已经用完
 
-                    }else{//抽奖
-                        turnWheel.prizeId.forEach(function(currentValue, index){
-                            if(currentValue == data.prize.id){
+            //         }else{//抽奖
+                        
+            //         }
+            //     },
+            //     error: function(data){
+            //         console.log("网络错误，请检查您的网络设置！");
+            //     }
+            // });
+            turnWheel.prizeId.forEach(function(currentValue, index){
+                            if(currentValue == 2){
                                 var item = index;
                                 console.log(index);
-                                $(".award-warp .content").html(data.prize.name);
+                                $(".award-warp .content").html("dd");
                                 // 开始抽奖
                                 rotateFunc(item, turnWheel.rewardNames[item],count);
                             }
-                        })
-                    }
-                },
-                error: function(data){
-                    console.log("网络错误，请检查您的网络设置！");
-                }
-            });
+                        });
 
         });
 
